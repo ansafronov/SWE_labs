@@ -1,6 +1,6 @@
-_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
-ansafronov:x:1000:1001::/home/ansafronov:/usr/bin/zsh
 ansafronov_work:x:1001:1002::/home/ansafronov_work:/bin/bash
+ansafronov:x:1000:1001::/home/ansafronov:/usr/bin/zsh
+_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
 backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
 bin:x:2:2:bin:/bin:/usr/sbin/nologin
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -22,11 +22,11 @@ proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
 root:x:0:0:root:/root:/bin/bash
 sshd:x:106:65534::/run/sshd:/usr/sbin/nologin
 sync:x:4:65534:sync:/bin:/bin/sync
-sys:x:3:3:sys:/dev:/usr/sbin/nologin
 syslog:x:107:113::/home/syslog:/usr/sbin/nologin
 systemd-network:x:101:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
 systemd-resolve:x:102:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
 systemd-timesync:x:104:105:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
 tcpdump:x:109:115::/nonexistent:/usr/sbin/nologin
 tss:x:110:116:TPM software stack,,,:/var/lib/tpm:/bin/false
 usbmux:x:113:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin

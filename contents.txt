@@ -1,11 +1,15 @@
-total 8
--rw-rw-r-- 1 ansafronov ansafronov 1915 Oct  5 07:32 answers.sh
--rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 07:32 contents.txt
--rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 07:30 file_1.txt
--rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 07:30 file_10.txt
--rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 07:30 file_2.txt
--rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 07:30 file_3.txt
--rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 07:30 file_7.txt
--rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 07:30 file_8.txt
--rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 07:30 file_9.txt
+total 20
+-rw-rw-r-- 1 ansafronov ansafronov 2461 Oct  5 08:39 answers.sh
+drwxr-xrwx 2 ansafronov ansafronov 4096 Oct  5 08:33 Box
+-rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 08:39 contents.txt
+-rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 08:38 err.txt
+-rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 08:39 file_10.txt
+-rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 08:39 file_1.txt
+-rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 08:39 file_2.txt
+-rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 08:39 file_3.txt
+-rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 08:39 file_7.txt
+-rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 08:39 file_8.txt
+-rw-rw-r-- 1 ansafronov ansafronov    0 Oct  5 08:39 file_9.txt
+-rw-rw-r-- 1 ansafronov ansafronov 1899 Oct  5 08:38 foo.txt
 drwxrwxr-x 5 ansafronov ansafronov 4096 Oct  5 07:15 practical_1_unix_local_machine_1
+-rw-rw-r-- 1 ansafronov ansafronov  110 Oct  5 08:26 README.md
