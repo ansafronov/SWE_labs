@@ -2,5 +2,6 @@
 
 You could get results by executing:
 ```{bash}
-bash answers.sh
+chmod -x answers.sh
+./answers.sh
 ```
