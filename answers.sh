@@ -38,8 +38,9 @@ echo "======6th task======";
 # only be deleted by the user who created them.
 
 mkdir -p Box;
-# need check
-chmod -R 757 Box;
+# need check, here is calculator https://chmod-calculator.com
+chmod g+s Box;
+chmod +t Box;
 
 echo "======7th task======";
 # 7. In the provided data practical_1_unix_local_machine_1.zip, count the number of txt files residing at the
@@ -55,8 +56,36 @@ find practical_1_unix_local_machine_1 -name "00221*.txt" | wc -l
 
 echo "======9th task======";
 # 9. In the provided data practical_1_unix_local_machine_1.zip, count the number of lines in each txt file
+
+for file in $(find practical_1_unix_local_machine_1/ -name "*.txt")
+do
+    wc -l $file;
+done;
+
+echo "======10th task======";
 # 10. Calculate the size of each root (/) subdirectory and sort them by size.
+
+sudo du -sh /* | sort -rh
+
+echo "======11th task======";
 # 11. Calculate the size of all directories located at filesystem root (/) except the /sys and print the results
 # for the largest one.
+
+sudo du -sh --exclude=/sys /* | sort -rh | head -n 1;
+
+echo "======12th task======";
 # 12. Calculate the size of all directories located at filesystem root (/) except the /sys and excluding zero-
 # sized directories, and print all results.
+
+for dir in /*; do
+    if [ "$dir" != "/sys" ]; then
+        # Calculate size using "du" command and extract the size value
+        size=$(sudo du -s "$dir" | awk '{print $1}')
+        
+        # Check if the size is non-zero and print the result
+        if [ $size -ne 0 ]; then
+            echo "$(echo $size | numfmt --to=iec)\t$dir"
+        fi
+    fi
+done;
+
