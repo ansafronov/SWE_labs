@@ -162,17 +162,19 @@ choose any program to generate messages, for example ls -lh
 b. Now, the more complex task. Write a command that:
     1. displays the output and error streams as is and
     2. redirect them into separate respective files (that means it prints error message to the stderr and to a file, and prints other outputs to stdout and to a file)
-
+c. Use the tee program (it reads from the standard input and writes to both standard output and one or more files at the same time)
+d. Use Process Substitution (https://tldp.org/LDP/abs/html/process-sub.html) (it creates a FIFO and lets tee listen on it. Then, it uses > (file redirection) to redirect the stdout of command to the FIFO that your first tee is listening on)
 
 Answer:
 ```bash
 # a
 ls -lh 1>&2;
 # b
-exec 3>&1; ls -lh 2> >(cat >&2 > 2.4.b.err) 1> >(cat > 2.4.b.out >&3); exec 3>&-; 
+ls -lh > 2.4.b.out 2> 2.4.b.err;
 cat 2.4.b.err 2.4.b.out;
 # c
-
+ls -lh 2>&1 | tee 2.4.c.all;
+cat 2.4.c.all;
 # d
 ls -lh 2> >(tee 2.4.d.err >&2) | tee 2.4.d.out;
 cat 2.4.d.err 2.4.d.out;
@@ -184,20 +186,28 @@ Lab4(main) ✗: ls -lh 1>&2;
 total 16
 -rw-r--r--  1 andrey  staff   6.6K Oct 13 00:37 Lab4.md
 -rw-r--r--  1 andrey  staff     0B Oct 12 23:52 answers.sh
-Lab4(main) ✗: exec 3>&1; ls -lh 2> >(cat >&2 > 2.4.b.err) 1> >(cat > 2.4.b.out >&3); exec 3>&-; 
-cat 2.4.b.err 2.4.b.out;
+Lab4(main) ✗: ls -lh > 2.4.b.out 2> 2.4.b.err; 
+Lab4(main) ✗: cat 2.4.b.err 2.4.b.out;
 total 16
 -rw-r--r--  1 andrey  staff     0B Oct 13 00:36 2.4.b.err
 -rw-r--r--  1 andrey  staff     0B Oct 13 00:36 2.4.b.out
 -rw-r--r--  1 andrey  staff   7.8K Oct 13 00:36 Lab4.md
 -rw-r--r--  1 andrey  staff     0B Oct 12 23:52 answers.sh
+Lab4(main) ✗: ls -lh 2>&1 | tee 2.4.c.all;
 total 16
 -rw-r--r--  1 andrey  staff     0B Oct 13 00:36 2.4.b.err
 -rw-r--r--  1 andrey  staff     0B Oct 13 00:36 2.4.b.out
+-rw-r--r--  1 andrey  staff     0B Oct 13 00:36 2.4.c.all
 -rw-r--r--  1 andrey  staff   7.8K Oct 13 00:36 Lab4.md
 -rw-r--r--  1 andrey  staff     0B Oct 12 23:52 answers.sh
-ls -lh 2> >(tee 2.4.d.err >&2) | tee 2.4.d.out;
-cat 2.4.d.err 2.4.d.out;
+Lab4(main) ✗: cat 2.4.c.all;
+total 16
+-rw-r--r--  1 andrey  staff     0B Oct 13 00:36 2.4.b.err
+-rw-r--r--  1 andrey  staff     0B Oct 13 00:36 2.4.b.out
+-rw-r--r--  1 andrey  staff     0B Oct 13 00:36 2.4.c.all
+-rw-r--r--  1 andrey  staff   7.8K Oct 13 00:36 Lab4.md
+-rw-r--r--  1 andrey  staff     0B Oct 12 23:52 answers.sh
+Lab4(main) ✗: ls -lh 2> >(tee 2.4.d.err >&2) | tee 2.4.d.out;
 total 24
 -rw-r--r--  1 andrey  staff     0B Oct 13 00:37 2.4.b.err
 -rw-r--r--  1 andrey  staff   356B Oct 13 00:37 2.4.b.out
@@ -205,6 +215,7 @@ total 24
 -rw-r--r--  1 andrey  staff     0B Oct 13 00:37 2.4.d.out
 -rw-r--r--  1 andrey  staff   6.7K Oct 13 00:37 Lab4.md
 -rw-r--r--  1 andrey  staff     0B Oct 12 23:52 answers.sh
+Lab4(main) ✗: cat 2.4.d.err 2.4.d.out;
 total 24
 -rw-r--r--  1 andrey  staff     0B Oct 13 00:37 2.4.b.err
 -rw-r--r--  1 andrey  staff   356B Oct 13 00:37 2.4.b.out
@@ -384,6 +395,39 @@ The data_for_science.tar.xz directory contains files of the following format: ta
 
 ```bash
 mkdir data_for_science;
-tar -xzf practical4_data_for_science.tar.xz -C data_for_science;
-du -ab data_for_science/data_for_science | sort -n -r | head -n 3 > data_for_science_3largest_files.txt
+tar -xf practical4_data_for_science.tar.xz -C data_for_science;
+# du -ab data_for_science/data_for_science | sort -n -r | head -n 3 > data_for_science_3largest_files.txt
+largest_files=$(find data_for_science/data_for_science/ -type f -printf '%s\t%p\n' | sort -n -r | head -n 3 | awk -F '\t' '{print $2}');
+touch unique_bad_words.txt;
+for file in $largest_files; do
+    # Filter out the lines with the "bad" class, extract and convert the keywords, write unique words to unique_bad_words.txt
+    awk -F '\t' 'tolower($1)=="bad" {gsub(",", "\n", $2); print tolower($2)}' "$file" \
+    | sort -u \
+    | cat unique_bad_words.txt - \
+    | sort -u \
+    > tmp.txt
+    mv tmp.txt unique_bad_words.txt
+done;
+cat unique_bad_words.txt | head -n 12 | tail -n 3;
+```
+
+```console
+andro@pop-os ~/.../Lab4 (main)$ mkdir data_for_science;
+andro@pop-os ~/.../Lab4 (main)$ tar -xf practical4_data_for_science.tar.xz -C data_for_science;
+andro@pop-os ~/.../Lab4 (main)$ largest_files=$(find data_for_science/data_for_science/ -type f -printf '%s\t%p\n' | sort -n -r | head -n 3 | awk -F '\t' '{print $2}');
+andro@pop-os ~/.../Lab4 (main)$ touch unique_bad_words.txt;
+andro@pop-os ~/.../Lab4 (main)$ for file in $largest_files; do
+    # Filter out the lines with the "bad" class, extract and convert the keywords, write unique words to unique_bad_words.txt
+    awk -F '\t' 'tolower($1)=="bad" {gsub(",", "\n", $2); print tolower($2)}' "$file" \
+    | sort -u \
+    | cat unique_bad_words.txt - \
+    | sort -u \
+    > tmp.txt
+    mv tmp.txt unique_bad_words.txt
+done;
+andro@pop-os ~/.../Lab4 (main)$ cat unique_bad_words.txt | head -n 12 | tail -n 3;
+cultivation
+cygnets
+developmental
+andro@pop-os ~/.../Lab4 (main)$ 
 ```

@@ -1,8 +1,8 @@
 total 154M
 -rw-rw-r-- 1 andro andro    0 Oct 13 00:45 15mb.txt
 -rw-rw-r-- 1 andro andro    0 Oct 14 14:00 2.4.b.err
--rw-rw-r-- 1 andro andro    0 Oct 14 14:00 2.4.b.out
--rw-rw-r-- 1 andro andro 1.1K Oct 14 13:47 2.4.c.all
+-rw-rw-r-- 1 andro andro 1.1K Oct 14 14:00 2.4.b.out
+-rw-rw-r-- 1 andro andro    0 Oct 14 14:03 2.4.c.all
 -rw-rw-r-- 1 andro andro    0 Oct 13 00:37 2.4.d.err
 -rw-rw-r-- 1 andro andro  356 Oct 13 00:37 2.4.d.out
 -rw-rw-r-- 1 andro andro    0 Oct 13 00:45 25mb.txt
@@ -12,7 +12,7 @@ drwxrwxr-x 3 andro andro 4.0K Oct 14 13:39 data_for_science
 -rw-rw-r-- 1 andro andro  124 Oct 14 12:54 data_for_science_3largest_files.txt
 -rw-rw-r-- 1 andro andro  120 Oct 14 13:20 data_top_3_files.txt
 drwxrwxr-x 4 andro andro 4.0K Oct 13 01:11 directory_local
--rw-rw-r-- 1 andro andro  17K Oct 14 14:00 Lab4.md
+-rw-rw-r-- 1 andro andro  17K Oct 14 14:03 Lab4.md
 drwxrwxr-x 3 andro andro 4.0K Oct 14 12:25 logs
 -rw-rw-r-- 1 andro andro  29M Oct 14 12:49 logs_more_5M.tar
 -rw-rw-r-- 1 andro andro  26K Oct 13 23:17 practical4_data_for_science.tar.xz
